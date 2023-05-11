@@ -1,0 +1,11 @@
+name: "netease-box"
+author: "zonemeen"
+description: "将你的网易云音乐听歌记录更新到 Gist"
+
+runs:
+  using: "node16"
+  main: "./index.js"
+
+branding:
+  icon: "music"
+  color: "red"

@@ -1,0 +1,24 @@
+{
+  "name": "netease-box",
+  "version": "1.0.0",
+  "description": "将你的网易云音乐听歌记录更新到 Gist",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zonemeen/netease-box.git"
+  },
+  "bugs": {
+    "url": "https://github.com/zonemeen/netease-box/issues"
+  },
+  "homepage": "https://github.com/zonemeen/netease-box#readme",
+  "author": "zonemeen <miqilin18@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@octokit/rest": "^19.0.7",
+    "axios": "^1.4.0",
+    "dotenv": "^16.0.3"
+  },
+  "devDependencies": {
+    "prettier": "^2.8.8"
+  }
+}
