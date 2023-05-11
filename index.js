@@ -51,7 +51,7 @@ const aesRsaEncrypt = (text) => ({
   if (!songs.length) return
 
   const tracks = songs
-    .map((song) => `[${song.name}] - ${song.ar.map(({ name }) => name).join('/')}`)
+    .map(({ song }) => `[${song.name}] - ${song.ar.map(({ name }) => name).join('/')}`)
     .join('\n')
 
   try {
