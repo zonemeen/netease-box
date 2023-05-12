@@ -47,11 +47,12 @@ const aesRsaEncrypt = (text) => ({
     }
   )
 
-  const songs = data[parseInt(type) === 1 ? 'weekData' : 'allData'].slice(0, 5)
+  const songs = data.weekData ?? data.allData
   if (!songs.length) return
 
   const tracks = songs
-    .map(({ song }) => `[${song.name}] - ${song.ar.map(({ name }) => name).join('/')}`)
+    .slice(0, 5)
+    .map(({ song }) => `[${song.name}]   -   ${song.ar.map(({ name }) => name).join('/')}`)
     .join('\n')
 
   try {
