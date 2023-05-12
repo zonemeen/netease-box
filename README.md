@@ -30,9 +30,11 @@
 
 3. 编辑 `.github/workflows/netease-box.yml` 文件中的环境变量：
 
-    - **GIST_ID**: ID 是新建 Gist 的 `url` 后缀: `https://gist.github.com/zonemeen/`**`f802683988594e7369f6c2c5e23286eb`**
+    - **GIST_ID**: `id` 是新建 Gist 的 `url` 后缀: `https://gist.github.com/zonemeen/`**`f802683988594e7369f6c2c5e23286eb`**
 
-    - **ACCOUNT_ID**: 网易云音乐用户 ID
+    - **ACCOUNT_ID**: 网易云音乐用户 `id`
+
+    - **SONG_TYPE**: 歌曲排行类型，默认为 `1`，代表最近一周的听歌排行；输入 `0` 代表所有时间的听歌排行
 
 4. 在项目的 `Settings > Secrets` 中创建 Github Token 变量 `GH_TOKEN`，填入到 `.github/workflows/netease-box.yml` 文件中的环境变量
 
