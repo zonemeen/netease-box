@@ -30,7 +30,7 @@
 
 3. 编辑 `.github/workflows/netease-box.yml` 文件中的环境变量：
 
-    - **GIST_ID**: `id` 是新建 Gist 的 `url` 后缀: `https://gist.github.com/zonemeen/`**`f802683988594e7369f6c2c5e23286eb`**
+    - **GIST_ID**: `id` 是新建 Gist 的 `url` 后缀: `https://gist.github.com/zonemeen/f802683988594e7369f6c2c5e23286eb`
 
     - **ACCOUNT_ID**: 网易云音乐用户 `id`
 
