@@ -15,7 +15,6 @@ jobs:
       - name: Update Gist
         uses: ./
         env:
-          
-          GIST_ID: ${{DoctorHaibara/592509f16f4a6529b34f1c33a593eb14}}
+          GIST_ID: 592509f16f4a6529b34f1c33a593eb14
           ACCOUNT_ID: 1504809469
           SONG_TYPE: 1
