@@ -22,40 +22,47 @@ const aesRsaEncrypt = (text) => ({
 })
 
 ;(async () => {
-  const { data } = await axios.post(
-    'https://music.163.com/weapi/v1/play/record?csrf_token=',
-    aesRsaEncrypt(
-      JSON.stringify({
-        uid: accountId,
-        type,
-      })
-    ),
-    {
-      headers: {
-        Accept: '*/*',
-        'Accept-Encoding': 'gzip,deflate,sdch',
-        'Accept-Language': 'zh-CN,en-US;q=0.7,en;q=0.3',
-        Connection: 'keep-alive',
-        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-        Host: 'music.163.com',
-        Referer: 'https://music.163.com/',
-        'User-Agent':
-          'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36',
-        Cookie:
-          'os=pc; osver=Microsoft-Windows-10-Professional-build-10586-64bit; appver=2.0.3.131777; ',
-      },
-    }
-  )
-
-  const songs = data.weekData ?? data.allData
-  if (!songs.length) return
-
-  const tracks = songs
-    .slice(0, 5)
-    .map(({ song }) => `[${song.name}] - ${song.ar.map(({ name }) => name).join('/')}`)
-    .join('\n')
-
   try {
+    const { data } = await axios.post(
+      'https://music.163.com/weapi/v1/play/record?csrf_token=',
+      aesRsaEncrypt(
+        JSON.stringify({
+          uid: accountId,
+          type,
+        })
+      ),
+      {
+        headers: {
+          Accept: '*/*',
+          'Accept-Encoding': 'gzip,deflate,sdch',
+          'Accept-Language': 'zh-CN,en-US;q=0.7,en;q=0.3',
+          Connection: 'keep-alive',
+          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+          Host: 'music.163.com',
+          Referer: 'https://music.163.com/',
+          'User-Agent':
+            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36',
+          Cookie:
+            'os=pc; osver=Microsoft-Windows-10-Professional-build-10586-64bit; appver=2.0.3.131777; ',
+        },
+      }
+    )
+
+    console.log('Fetched data from NetEase:', data)
+
+    const songs = data.weekData ?? data.allData
+    if (!songs.length) {
+      console.log('No songs found')
+      return
+    }
+
+    const tracks = songs
+      .slice(0, 5)
+      .map(({ song }) => `[${song.name}] - ${song.ar.map(({ name }) => name).join('/')}`)
+      .join('\n')
+
+    console.log('Top 5 tracks:', tracks)
+
     const octokit = new Octokit({
       auth: `token ${githubToken}`,
     })
@@ -73,7 +80,9 @@ const aesRsaEncrypt = (text) => ({
         },
       },
     })
+
+    console.log('Gist updated successfully')
   } catch (error) {
-    console.error(`Unable to update gist\n${error}`)
+    console.error('Unable to update gist', error)
   }
 })()
