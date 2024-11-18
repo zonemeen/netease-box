@@ -10,6 +10,12 @@ const {
   SONG_TYPE: type = 1,
 } = process.env
 
+console.log('Environment Variables:')
+console.log('GIST_ID:', gistId)
+console.log('GH_TOKEN:', githubToken ? '***' : 'Not Set')
+console.log('ACCOUNT_ID:', accountId)
+console.log('SONG_TYPE:', type)
+
 const aesEncrypt = (secKey, text) => {
   const cipher = crypto.createCipheriv('AES-128-CBC', secKey, '0102030405060708')
   return cipher.update(text, 'utf-8', 'base64') + cipher.final('base64')
