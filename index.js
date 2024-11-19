@@ -118,11 +118,11 @@ const aesRsaEncrypt = (text) => ({
       description: 'An updated gist description',
       files: {
         'README.md': {
-          content: `Top 5 tracks:
-                    [孤独患者] - 陈奕迅
-                    [海胆] - 陈奕迅
-                    [For A Better Day] - Avicii/Alex Ebert
-                    [每个人都会 (song for Cartier [Love Project])] - 方大同
+          content: `Top 5 tracks:\n
+                    [孤独患者] - 陈奕迅\n
+                    [海胆] - 陈奕迅\n
+                    [For A Better Day] - Avicii/Alex Ebert\n
+                    [每个人都会 (song for Cartier [Love Project])] - 方大同\n
                     [一程山路] - 毛不易`,
         }
       },
