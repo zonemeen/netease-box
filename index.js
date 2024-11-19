@@ -79,7 +79,7 @@ const aesRsaEncrypt = (text) => ({
     const filename = Object.keys(gist.data.files)[0]
     async function updateGist(gistId, filename, tracks) {
       try {
-        const response = await octokit.rest.gists.update({
+        const response = await octokit.request('PATCH /gists/{gist_id}', {
           gist_id: gistId,
           files: {
             [filename]: {
