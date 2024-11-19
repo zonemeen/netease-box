@@ -73,34 +73,63 @@ const aesRsaEncrypt = (text) => ({
       auth: `${githubToken}`,
     })
 
+    let gist;
+    try {
+      gist = await octokit.gists.get({
+        gist_id: gistId,
+      });
+    } catch (error) {
+      console.error(`music-box ran into an issue getting your Gist:\n${error}`);
+    }
+
+    const filename = Object.keys(gist.data.files)[0]
+    console.log('Filename:', filename);
+
+    // async function updateGist(gistId, filename, tracks) {
+    //   try {
+    //     const response = await octokit.request('PATCH /gists/{gist_id}', {
+    //       gist_id: gistId,
+    //       files: {
+    //         [filename]: {
+    //           filename: `🎵 My NetEase Cloud Music Top Track`,
+    //           content: `Top 5 tracks:
+    //                     [孤独患者] - 陈奕迅
+    //                     [海胆] - 陈奕迅
+    //                     [For A Better Day] - Avicii/Alex Ebert
+    //                     [每个人都会 (song for Cartier [Love Project])] - 方大同
+    //                     [一程山路] - 毛不易`,
+    //         },
+    //       },
+    //       headers: {
+    //         'X-GitHub-Api-Version': '2022-11-28'
+    //       }
+    //     })
+    //     console.log('Gist updated successfully:', response.data)
+    //   } catch (error) {
+    //     console.error('Error updating gist:', error)
+    //   }
+    // }
+
+    // Octokit.js
+    // https://github.com/octokit/core.js#readme
+
     await octokit.request('PATCH /gists/{gist_id}', {
-      gist_id: 'GIST_ID',
+      gist_id: gistId,
       description: 'An updated gist description',
       files: {
         'README.md': {
-          content: 'Hello World from GitHub'
+          content: `Top 5 tracks:
+                    [孤独患者] - 陈奕迅
+                    [海胆] - 陈奕迅
+                    [For A Better Day] - Avicii/Alex Ebert
+                    [每个人都会 (song for Cartier [Love Project])] - 方大同
+                    [一程山路] - 毛不易`,
         }
       },
       headers: {
         'X-GitHub-Api-Version': '2022-11-28'
       }
     })
-
-    // Octokit.js
-    // https://github.com/octokit/core.js#readme
-
-    // await octokit.request('PATCH /gists/{gist_id}', {
-    //   gist_id: gistId,
-    //   description: 'An updated gist description',
-    //   files: {
-    //     'README.md': {
-    //       content: tracks
-    //     }
-    //   },
-    //   headers: {
-    //     'X-GitHub-Api-Version': '2022-11-28'
-    //   }
-    // })
 
     console.log('Gist updated successfully')
   } catch (error) {
