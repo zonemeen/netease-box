@@ -77,25 +77,41 @@ const aesRsaEncrypt = (text) => ({
     })
 
     const filename = Object.keys(gist.data.files)[0]
-    async function updateGist(gistId, filename, tracks) {
-      try {
-        const response = await octokit.request('PATCH /gists/{gist_id}', {
-          gist_id: gistId,
-          files: {
-            [filename]: {
-              filename: `🎵 My NetEase Cloud Music Top Track`,
-              content: tracks,
-            },
-          },
-          headers: {
-            'X-GitHub-Api-Version': '2022-11-28'
-          }
-        })
-        console.log('Gist updated successfully:', response.data)
-      } catch (error) {
-        console.error('Error updating gist:', error)
+    // async function updateGist(gistId, filename, tracks) {
+    //   try {
+    //     const response = await octokit.request('PATCH /gists/{gist_id}', {
+    //       gist_id: gistId,
+    //       files: {
+    //         [filename]: {
+    //           filename: `🎵 My NetEase Cloud Music Top Track`,
+    //           content: tracks,
+    //         },
+    //       },
+    //       headers: {
+    //         'X-GitHub-Api-Version': '2022-11-28'
+    //       }
+    //     })
+    //     console.log('Gist updated successfully:', response.data)
+    //   } catch (error) {
+    //     console.error('Error updating gist:', error)
+    //   }
+    // }
+
+    // Octokit.js
+    // https://github.com/octokit/core.js#readme
+
+    await octokit.request('PATCH /gists/{gist_id}', {
+      gist_id: gistId,
+      description: 'An updated gist description',
+      files: {
+        'README.md': {
+          content: 'Hello World from GitHub'
+        }
+      },
+      headers: {
+        'X-GitHub-Api-Version': '2022-11-28'
       }
-    }
+    })
 
     console.log('Gist updated successfully')
   } catch (error) {
