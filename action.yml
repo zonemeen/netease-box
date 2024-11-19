@@ -3,7 +3,7 @@ author: "zonemeen"
 description: "将你的网易云音乐听歌记录更新到 Gist"
 
 runs:
-  using: "node16"
+  using: "node20"
   main: "./index.js"
 
 branding:
