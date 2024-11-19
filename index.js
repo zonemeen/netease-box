@@ -83,10 +83,10 @@ const aesRsaEncrypt = (text) => ({
           gist_id: gistId,
           files: {
             'README.md': {
-              content: 'Hello World from GitHub',
+              content: '111',
             },
             '🎵 My NetEase Cloud Music Top Track': {
-              content: 'Hello World from GitHub',
+              content: '111',
             }
           },
           headers: {
