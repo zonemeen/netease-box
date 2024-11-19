@@ -82,10 +82,12 @@ const aesRsaEncrypt = (text) => ({
         const response = await octokit.request('PATCH /gists/{gist_id}', {
           gist_id: gistId,
           files: {
+            'README.md': {
+              content: 'Hello World from GitHub',
             '🎵 My NetEase Cloud Music Top Track': {
-              content: "111",
-            },
-          },
+              content: 'Hello World from GitHub'
+
+        },
           headers: {
             'X-GitHub-Api-Version': '2022-11-28'
           }
