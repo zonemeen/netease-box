@@ -87,6 +87,9 @@ const aesRsaEncrypt = (text) => ({
               content: tracks,
             },
           },
+          headers: {
+            'X-GitHub-Api-Version': '2022-11-28'
+          }
         })
         console.log('Gist updated successfully:', response.data)
       } catch (error) {
