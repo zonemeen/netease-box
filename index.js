@@ -70,22 +70,29 @@ const aesRsaEncrypt = (text) => ({
     console.log('Top 5 tracks:', tracks)
 
     const octokit = new Octokit({
-      auth: `token ${githubToken}`,
+      auth: `${githubToken}`,
     })
     const gist = await octokit.gists.get({
       gist_id: gistId,
     })
 
     const filename = Object.keys(gist.data.files)[0]
-    await octokit.gists.update({
-      gist_id: gistId,
-      files: {
-        [filename]: {
-          filename: `🎵 My NetEase Cloud Music Top Track`,
-          content: tracks,
-        },
-      },
-    })
+    async function updateGist(gistId, filename, tracks) {
+      try {
+        const response = await octokit.rest.gists.update({
+          gist_id: gistId,
+          files: {
+            [filename]: {
+              filename: `🎵 My NetEase Cloud Music Top Track`,
+              content: tracks,
+            },
+          },
+        })
+        console.log('Gist updated successfully:', response.data)
+      } catch (error) {
+        console.error('Error updating gist:', error)
+      }
+    }
 
     console.log('Gist updated successfully')
   } catch (error) {
