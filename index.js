@@ -67,51 +67,59 @@ const aesRsaEncrypt = (text) => ({
       .map(({ song }) => `[${song.name}] - ${song.ar.map(({ name }) => name).join('/')}`)
       .join('\n')
 
-    console.log('Top 5 tracks:', tracks)
+    console.log('Top 5 tracks:\n', tracks)
 
     const octokit = new Octokit({
       auth: `${githubToken}`,
     })
-    const gist = await octokit.gists.get({
-      gist_id: gistId,
-    })
+
+    let gist;
+    try {
+      gist = await octokit.gists.get({
+        gist_id: gistID,
+      });
+    } catch (error) {
+      console.error(`music-box ran into an issue getting your Gist:\n${error}`);
+    }
 
     const filename = Object.keys(gist.data.files)[0]
-    // async function updateGist(gistId, filename, tracks) {
-    //   try {
-    //     const response = await octokit.request('PATCH /gists/{gist_id}', {
-    //       gist_id: gistId,
-    //       files: {
-    //         [filename]: {
-    //           filename: `🎵 My NetEase Cloud Music Top Track`,
-    //           content: tracks,
-    //         },
-    //       },
-    //       headers: {
-    //         'X-GitHub-Api-Version': '2022-11-28'
-    //       }
-    //     })
-    //     console.log('Gist updated successfully:', response.data)
-    //   } catch (error) {
-    //     console.error('Error updating gist:', error)
-    //   }
-    // }
+    console.log('Filename:', filename);
+    
+    async function updateGist(gistId, filename, tracks) {
+      try {
+        const response = await octokit.request('PATCH /gists/{gist_id}', {
+          gist_id: gistId,
+          files: {
+            [filename]: {
+              filename: `🎵 My NetEase Cloud Music Top Track`,
+              content: tracks,
+            },
+          },
+          headers: {
+            'X-GitHub-Api-Version': '2022-11-28'
+          }
+        })
+        console.log('Gist updated successfully:', response.data)
+      } catch (error) {
+        console.error('Error updating gist:', error)
+      }
+    }
 
     // Octokit.js
     // https://github.com/octokit/core.js#readme
 
-    await octokit.request('PATCH /gists/{gist_id}', {
-      gist_id: gistId,
-      description: 'An updated gist description',
-      files: {
-        'README.md': {
-          content: tracks
-        }
-      },
-      headers: {
-        'X-GitHub-Api-Version': '2022-11-28'
-      }
-    })
+    // await octokit.request('PATCH /gists/{gist_id}', {
+    //   gist_id: gistId,
+    //   description: 'An updated gist description',
+    //   files: {
+    //     'README.md': {
+    //       content: tracks
+    //     }
+    //   },
+    //   headers: {
+    //     'X-GitHub-Api-Version': '2022-11-28'
+    //   }
+    // })
 
     console.log('Gist updated successfully')
   } catch (error) {
