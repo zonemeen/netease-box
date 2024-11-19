@@ -76,7 +76,7 @@ const aesRsaEncrypt = (text) => ({
     let gist;
     try {
       gist = await octokit.gists.get({
-        gist_id: gistID,
+        gist_id: gistId,
       });
     } catch (error) {
       console.error(`music-box ran into an issue getting your Gist:\n${error}`);
@@ -84,7 +84,7 @@ const aesRsaEncrypt = (text) => ({
 
     const filename = Object.keys(gist.data.files)[0]
     console.log('Filename:', filename);
-    
+
     async function updateGist(gistId, filename, tracks) {
       try {
         const response = await octokit.request('PATCH /gists/{gist_id}', {
