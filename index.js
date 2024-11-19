@@ -82,7 +82,7 @@ const aesRsaEncrypt = (text) => ({
         const response = await octokit.request('PATCH /gists/{gist_id}', {
           gist_id: gistId,
           files: {
-            '🎵 My NetEase Cloud Music Top Track': {
+            'README.md': {
               content: tracks,
             },
           },
